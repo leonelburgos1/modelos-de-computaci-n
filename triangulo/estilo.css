@@ -1,0 +1,42 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.contenedor {
+    border: 2px solid black;
+    padding: 20px;
+    width: 500px;
+}
+
+.fila {
+    display: flex;
+    justify-content: space-between;
+}
+
+.lado-izq {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+}
+
+.lado-boton {
+    width: 35%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+button {
+    padding: 10px;
+    width: 100%;
+    background-color:aquamarine;
+}
+
+.resultado-abajo {
+    margin-top: 20px;
+    border-top: 2px solid black;
+    padding-top: 10px;
+}
