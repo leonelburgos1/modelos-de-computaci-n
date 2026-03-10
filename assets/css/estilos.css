@@ -1,0 +1,106 @@
+body {
+    background: linear-gradient(135deg, #0d6efd, #0a58ca);
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+}
+
+.card-custom {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    padding: 25px;
+}
+
+.titulo {
+    color: #52565e;
+    font-weight: bold;
+}
+
+.btn-azul {
+    background: #0d6efd;
+    border: none;
+}
+
+.btn-azul:hover {
+    background: #0a58ca;
+}
+
+
+
+.acciones button {
+    margin-right: 5px;
+}
+.sidebar-custom {
+    background-color: #0f172a !important;
+}
+
+.sidebar-custom .nav-link {
+    color: #e2e8f0 !important;
+}
+
+.sidebar-custom .nav-link:hover {
+    background-color: #1e293b !important;
+}
+
+.sidebar-custom .nav-link.active {
+    background-color: #202f46 !important;
+    color: white !important;
+}
+/* Logo Panel */
+.brand-custom {
+    color: white !important;
+    text-decoration: none !important;
+    background-color: #0f172a !important;
+}
+
+/* quitar subrayado */
+.brand-custom:hover {
+    color: #e2e8f0 !important;
+    text-decoration: none !important;
+    border-radius: 100px;
+}
+/* Fondo del dashboard */
+.content-wrapper {
+    background: linear-gradient(135deg, #c5d5e4, #c3dfe2);
+    min-height: 100vh;
+}
+
+/* Sidebar oscuro */
+.sidebar-custom {
+    background-color: #0f172a !important;
+}
+
+/* Texto del menú */
+.sidebar-custom .nav-link {
+    color: #e2e8f0 !important;
+}
+
+/* Hover del menú */
+.sidebar-custom .nav-link:hover {
+    background-color: #1e293b !important;
+}
+
+/* Item activo */
+.sidebar-custom .nav-link.active {
+    background-color: #495a7e !important;
+    color: white !important;
+}
+
+/* Navbar personalizado */
+.navbar-custom {
+    background-color: #0f172a !important;
+    border-bottom: 1px solid #1e293b;
+}
+
+/* Texto del navbar */
+.navbar-custom .navbar-brand {
+    color: #e2e8f0 !important;
+    font-weight: bold;
+}
+
+.table thead th {
+    background: #0d6efd !important;
+    color: white !important;
+    text-align: center;
+    border: none;
+}

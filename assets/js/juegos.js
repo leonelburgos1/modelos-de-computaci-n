@@ -1,18 +1,33 @@
 const tableBody = document.getElementById("tableBody");
 
 async function listarJuegos() {
-    const response = await fetch("./API/crud.php");
+
+    const inputBuscar = document.getElementById("buscarInput");
+    const textoBuscar = inputBuscar ? inputBuscar.value : "";
+
+    let url = "./API/crud_juegos.php";
+
+    if (textoBuscar) {
+        url += `?buscar=${textoBuscar}`;
+    }
+
+    const response = await fetch(url);
     const juegos = await response.json();
 
     tableBody.innerHTML = "";
+
+    if (juegos.length === 0) {
+        tableBody.innerHTML = "<tr><td colspan='5'>No hay resultados</td></tr>";
+        return;
+    }
 
     juegos.forEach(juego => {
         tableBody.innerHTML += `
         <tr>
             <td>${juego.nombre}</td>
-            <td>${juego.tamaño}</td>
+            <td>${juego["tamaño"]}</td>
             <td>${juego.categoria}</td>
-            <td>${juego.creador}</td>
+            <td>${juego.desarrollador ?? "Sin desarrollador"}</td>
             <td>
                 <button onclick="cargarEdicion(${juego.id})" class="btn btn-warning btn-sm">Editar</button>
                 <button onclick="eliminarJuego(${juego.id})" class="btn btn-danger btn-sm">Eliminar</button>
@@ -23,38 +38,41 @@ async function listarJuegos() {
 }
 
 async function cargarEdicion(id) {
-    const response = await fetch(`./API/crud.php?id=${id}`);
+
+    const response = await fetch(`./API/crud_juegos.php?id=${id}`);
     const juego = await response.json();
 
     document.getElementById("nombre").value = juego.nombre;
     document.getElementById("tamaño").value = juego["tamaño"];
     document.getElementById("categoria").value = juego.categoria;
-    document.getElementById("creador").value = juego.creador;
+
+    // seleccionar el desarrollador correcto
+    document.getElementById("desarrollador").value = juego.id_desarrollador;
 
     document.getElementById("formJuego").setAttribute("data-editando", id);
 
-    // Cambiar botón a actualizar
     const btn = document.getElementById("btnGuardar");
+
     btn.textContent = "Actualizar";
     btn.classList.remove("btn-azul");
     btn.classList.add("btn-success");
 }
 
 async function agregarJuego(event) {
+
     event.preventDefault();
 
     const nombre = document.getElementById("nombre").value;
     const tamaño = document.getElementById("tamaño").value;
     const categoria = document.getElementById("categoria").value;
-    const creador = document.getElementById("creador").value;
+    const desarrollador = document.getElementById("desarrollador").value;
 
     const form = document.getElementById("formJuego");
     const idEditando = form.getAttribute("data-editando");
 
     if (idEditando) {
-        console.log("Actualizando ID:", idEditando);
-        //PUT (Actualizar)
-        await fetch("./API/crud.php", {
+
+        await fetch("./API/crud_juegos.php", {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -62,31 +80,31 @@ async function agregarJuego(event) {
                 nombre: nombre,
                 tamaño: tamaño,
                 categoria: categoria,
-                creador: creador
+                id_desarrollador: desarrollador
             })
         });
 
         form.removeAttribute("data-editando");
 
-        // Volver botón a modo agregar
         const btn = document.getElementById("btnGuardar");
+
         btn.textContent = "+";
         btn.classList.remove("btn-success");
         btn.classList.add("btn-azul");
 
     } else {
 
-        //  POST (Agregar)
-        await fetch("./API/crud.php", {
+        await fetch("./API/crud_juegos.php", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 nombre: nombre,
                 tamaño: tamaño,
                 categoria: categoria,
-                creador: creador
+                id_desarrollador: desarrollador
             })
         });
+
     }
 
     listarJuegos();
@@ -94,7 +112,12 @@ async function agregarJuego(event) {
 }
 
 async function eliminarJuego(id) {
-    await fetch("./API/crud.php", {
+
+    const confirmar = confirm("¿Estás seguro de eliminar este juego?");
+
+    if (!confirmar) return;
+
+    await fetch("./API/crud_juegos.php", {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id })
@@ -103,4 +126,39 @@ async function eliminarJuego(id) {
     listarJuegos();
 }
 
-document.addEventListener("DOMContentLoaded", listarJuegos);
+
+// cargar desarrolladores en el select del formulario
+async function cargarDesarrolladores(){
+
+    const response = await fetch("./API/crud_desarrolladores.php");
+    const desarrolladores = await response.json();
+
+    const select = document.getElementById("desarrollador");
+
+    select.innerHTML = '<option value="">Seleccione desarrollador</option>';
+
+    desarrolladores.forEach(dev => {
+
+        select.innerHTML += `
+        <option value="${dev.id_desarrollador}">
+            ${dev.nombre}
+        </option>
+        `;
+
+    });
+}
+
+
+// funciones al cargar la página
+document.addEventListener("DOMContentLoaded", () => {
+
+    listarJuegos();
+    cargarDesarrolladores();
+
+    const buscador = document.getElementById("buscarInput");
+
+    if (buscador) {
+        buscador.addEventListener("keyup", listarJuegos);
+    }
+
+});
