@@ -1,8 +1,8 @@
 <?php
-$hostDB = '127.0.0.1';
-$nameDB = 'udenar2_db';   
-$userDB = 'usuario_juegos';
-$pwDB = '12345';
+$hostDB = 'db';
+$nameDB = 'udenar';   
+$userDB = 'usuario';
+$pwDB = 'clave123';
 
 try {
     $pdo = new PDO("mysql:host=$hostDB;dbname=$nameDB;charset=utf8", $userDB, $pwDB);

@@ -18,7 +18,7 @@
 
     <!-- NAVBAR -->
     <nav class="main-header navbar navbar-expand navbar-dark navbar-custom">
-      <span class="navbar-brand font-weight-bold">Dashboard</span>
+      <span class="navbar-brand font-weight-bold">Juegos y Desarrolladores</span>
     </nav>
 
     <!-- SIDEBAR -->

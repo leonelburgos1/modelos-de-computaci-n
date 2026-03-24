@@ -49,7 +49,7 @@
                         <th>Nombre</th>
                         <th>Tamaño</th>
                         <th>Categoría</th>
-                        <th>Creador</th>
+                        <th>Desarrollador</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
